@@ -13,8 +13,12 @@ RUN ls -l /usr/local/tomcat/webapps/GestorDeProyectos/
 COPY ./GestorDeProyectos/WEB-INF/lib/postgresql-42.7.2.jar /usr/local/tomcat/lib/
 COPY ./GestorDeProyectos/WEB-INF/lib/jstl-1.2.jar /usr/local/tomcat/lib/
 
+# Verificar que el conector de PostgreSQL esté copiado correctamente
+RUN ls -l /usr/local/tomcat/lib/
+
 # Exponer el puerto 8080
 EXPOSE 8080
 
 # Comando de inicio de Tomcat
 CMD ["catalina.sh", "run"]
+
