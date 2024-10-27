@@ -1,23 +1,25 @@
+# Usar la imagen oficial de Tomcat 8.5 con JDK 8
 FROM tomcat:8.5-jdk8
 
-# Establecer el directorio de trabajo
+# Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /usr/local/tomcat/webapps/
 
-# Copiar la carpeta del proyecto
+# Copiar la carpeta del proyecto dentro del contenedor
 COPY ./GestorDeProyectos /usr/local/tomcat/webapps/GestorDeProyectos/
 
-# Listar el contenido del directorio para depuración (OPCIONAL SOLO SI HAY ERRORES)
+# Listar el contenido del directorio del proyecto para depuración
+# Esto solo es necesario temporalmente para verificar que la copia es exitosa
 RUN ls -l /usr/local/tomcat/webapps/GestorDeProyectos/
 
-# Copiar el conector de PostgreSQL y JSTL a la carpeta de librerías de Tomcat 
+# Copiar el conector de PostgreSQL y JSTL a la carpeta de librerías de Tomcat
 COPY ./GestorDeProyectos/WEB-INF/lib/postgresql-42.7.2.jar /usr/local/tomcat/lib/
 COPY ./GestorDeProyectos/WEB-INF/lib/jstl-1.2.jar /usr/local/tomcat/lib/
 
-# Verificar que el conector de PostgreSQL esté copiado correctamente
+# Verificar que los archivos jar se hayan copiado correctamente (opcional)
 RUN ls -l /usr/local/tomcat/lib/
 
-# Exponer el puerto 8080
+# Exponer el puerto 8080 para que la aplicación esté disponible
 EXPOSE 8080
 
-# Comando de inicio de Tomcat
+# Comando para iniciar Tomcat
 CMD ["catalina.sh", "run"]
